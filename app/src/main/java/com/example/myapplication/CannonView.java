@@ -15,6 +15,8 @@ import android.media.AudioAttributes;
 import android.media.SoundPool;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.VibrationEffect;
+import android.os.Vibrator;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.util.SparseIntArray;
@@ -270,8 +272,19 @@ public class CannonView extends SurfaceView implements SurfaceHolder.Callback {
 
         if (cannon.getCannonball() != null && cannon.getCannonball().collidesWith(blocker)) {
             blocker.playSound();
+            vibrar();
             cannon.getCannonball().reverseVelocityX();
             timeLeft -= blocker.getMissPenalty();
+        }
+    }
+
+    public void vibrar(){
+        Vibrator vib = (Vibrator) activity.getSystemService(Context.VIBRATOR_SERVICE);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            vib.vibrate(VibrationEffect.createOneShot(500, VibrationEffect.DEFAULT_AMPLITUDE));
+        }
+        else{
+            vib.vibrate(500);
         }
     }
 
