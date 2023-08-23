@@ -36,6 +36,7 @@ public class GameOverActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Intent mItPrincipal = new Intent(v.getContext(), MainActivity.class);
                 v.getContext().startActivity(mItPrincipal);
+                finish();
             }
         });
     }
